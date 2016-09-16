@@ -1,63 +1,104 @@
-import { Component, Injectable } from '@angular/core';
-import {  Headers, Http, RequestOptions, Response } from '@angular/http';
-import { Observable} from 'rxjs/Rx';
+import {Injectable} from '@angular/core';
+import {Headers, Http, RequestOptions, Response} from '@angular/http';
+import {Observable} from 'rxjs/Rx';
 import * as io from 'socket.io-client';
-import { Borough } from '../borough/borough';
+import {Borough} from '../borough/borough';
+import { Tile } from '../grid/tile';
 
 @Injectable()
 export class RtdbService {
 
-  private actionUrl: string;
-  private socket: any;
+    private socket1: any;
+    private socket2: any;
 
-  private url: string = "https://rtdb.rheosoft.com";
+    private url1: string = 'http://ibatch-01sc8:9001';
+    private url2: string = 'https://rtdb.rheosoft.com';
 
-  private ticketUrl: string = "https://rtdb.rheosoft.com/db/collections/e08e31fa-f414-4f2f-b067-6bce67fae7b0/views/90e40254-d57c-4ce5-88b5-20034c9511ec/ticket";
-
-
-  constructor(private http: Http) {
-
-  }
-
-
-  public getBoroughs(): Observable<Borough[]> {
-
-
-    console.log('fetching boroughs');
+    private otiles : Observable<Tile[]>;
+    private  boroughs: Observable<Borough[]>;
 
 
 
-      return new Observable<Borough[]>((observer:any) => {
-
-        console.log('creating socket');
-        this.socket = io(this.url);
+    constructor(private http: Http) {
 
 
-        this.socket.on('connect', () => {
-            console.log('connected to socket now subscribing');
-            this.http
-              .get(this.ticketUrl)
-              .toPromise()
-              .then(response => {
-                console.log("ticket is " + response.json());
-                this.socket.emit('subscribe', [{
-                  view: '90e40254-d57c-4ce5-88b5-20034c9511ec',
-                  ticket: response.json()
-                }])
-              });
+        console.log('creating socket2');
+        this.socket2 = io(this.url2);
+
+
+
+        this.socket2.on('connect', () => {
+            console.log('connected to socket2 now subscribing');
+
+            this.socket2.emit('subscribe', [{
+                view: '90e40254-d57c-4ce5-88b5-20034c9511ec'
+                //      ,ticket: response.json()
+            }]);
+
+        });
+
+        console.log('fetching boroughs');
+       this.boroughs = new Observable<Borough[]>((observer: any) => {
+
+            this.socket2.on('90e40254-d57c-4ce5-88b5-20034c9511ec',
+                data => {
+                    console.log('new borough data');
+                    observer.next(data.map(i => new Borough(i[0], i[1].fvTotal, i[1].count)));
+                });
+
+            return () => {
+                this.socket2.disconnect();
+            };
         });
 
 
-        this.socket.on('90e40254-d57c-4ce5-88b5-20034c9511ec',
-          data => {
-   observer.next(data.map(i => new Borough(i[0],  i[1].fvTotal,i[1].count)));
-          });
-
-        return () => {
-          this.socket.disconnect();
-        };
-      });
+        console.log('creating socket1');
+        this.socket1 = io(this.url1);
 
 
-  }
+        this.socket1.on('connect', () => {
+            console.log('connected to socket1 now subscribing');
+
+            this.socket1.emit('subscribe', [
+                {
+                    view: '5183acd6-09e2-451e-840f-a073e6363d38'
+                    //      ,ticket: response.json()
+                }]);
+
+        });
+
+        console.log('fetching tiles');
+
+        let colors: string[] = ['lightblue','lightgreen','lightpink','#DDBDF1','#E9967A','#FFC300','#00AEFF'];
+
+
+       this.otiles =  new Observable<Tile[]>((observer: any) => {
+
+            this.socket1.on('5183acd6-09e2-451e-840f-a073e6363d38',
+                data => {
+                    console.log('new tile data');
+                    observer.next(data.map(i => new Tile(i[0], i[1].modelYear + ' ' + i[1].make, colors[i[0] % 7], new Date(i[1].apptDate))));
+                });
+
+            return () => {
+                this.socket1.disconnect();
+            };
+        });
+
+
+
+
+    }
+
+
+    public getBoroughs(): Observable<Borough[]> {
+
+    return this.boroughs;
+    }
+
+    public getTiles(): Observable<Tile[]> {
+
+    return this.otiles;
+
+    }
 }

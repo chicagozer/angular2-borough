@@ -1,21 +1,10 @@
-<div>
-  <div>
-    <table class="table table-striped">
-      <thead>
-      <tr>
-        <td>Name</td>
-        <td>Valuation</td>
-        <td>Count</td>
-      </tr>
-      </thead>
-      <tbody>
-      <tr *ngFor="let borough of boroughs | async ">
-        <td> {{ borough.name }}</td>
-        <td> {{ borough.valuation }}</td>
-        <td> {{ borough.count }}</td>
-      </tr>
-      </tbody>
-    </table>
-  </div>
+<md-grid-list cols="5" rowHeight="140px">
+  <md-grid-tile *ngFor="let tile of tiles "
+                [style.background]="tile.color">
+    <md-grid-tile-header *ngIf="tile.header">
+      <h6>{{tile.header  | date:"EEE HH:mm" }}</h6>
+    </md-grid-tile-header>
 
-</div>
+    {{tile.text}}
+  </md-grid-tile>
+</md-grid-list>

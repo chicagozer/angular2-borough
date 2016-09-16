@@ -1,3 +1,24 @@
-<h1>
-  {{title}}
-</h1>
+<nav>
+      <span>
+        <a [routerLink]=" ['./'] ">
+          Index
+        </a>
+      </span>
+  |
+  <span>
+        <a [routerLink]=" ['./borough'] ">
+          Borough
+        </a>
+      </span>
+  |
+  <span>
+        <a [routerLink]=" ['./grid'] ">
+          Grid
+        </a>
+      </span>
+
+</nav>
+
+<main>
+  <router-outlet></router-outlet>
+</main>
