@@ -10,7 +10,7 @@ import { RtdbService } from '../rtdb/rtdb.service';
   // The selector is what angular internally uses
   // for `document.querySelectorAll(selector)` in our index.html
   // where, in this case, selector is the string 'home'
-  selector: 'borough',  // <home></home>
+  selector: 'app-borough',  // <home></home>
   // We need to tell Angular's Dependency Injection which providers are in our app.
   providers: [
   ],
