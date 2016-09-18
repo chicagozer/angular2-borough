@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {Headers, Http, RequestOptions, Response} from '@angular/http';
+import { Http} from '@angular/http';
 import {Observable} from 'rxjs/Rx';
 import * as io from 'socket.io-client';
 import {Borough} from '../borough/borough';
@@ -7,7 +7,7 @@ import {Borough} from '../borough/borough';
 @Injectable()
 export class RtdbService {
 
-    private socket2: any;
+    private socket2: SocketIOClient.Socket;
 
     private url2: string = 'https://rtdb.rheosoft.com';
 
