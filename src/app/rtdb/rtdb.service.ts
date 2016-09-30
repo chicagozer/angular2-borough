@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import { Http} from '@angular/http';
+import {Http} from '@angular/http';
 import {Observable} from 'rxjs/Rx';
 import * as io from 'socket.io-client';
 import {Borough} from '../borough/borough';
@@ -7,43 +7,37 @@ import {Borough} from '../borough/borough';
 @Injectable()
 export class RtdbService {
 
-    private socket2: SocketIOClient.Socket;
+    private socket: SocketIOClient.Socket;
 
-    private url2: string = 'https://rtdb.rheosoft.com';
+    private url: string = 'https://rtdb.rheosoft.com';
 
-    private  boroughs: Observable<Borough[]>;
-
+    private boroughs: Observable<Borough[]>;
 
 
     constructor(private http: Http) {
 
-
-        console.log('creating socket2');
-        this.socket2 = io(this.url2);
+        this.socket = io(this.url);
 
 
+        this.socket.on('connect', () => {
 
-        this.socket2.on('connect', () => {
-            console.log('connected to socket2 now subscribing');
-
-            this.socket2.emit('subscribe', [{
+            this.socket.emit('subscribe', [{
                 view: '90e40254-d57c-4ce5-88b5-20034c9511ec'
                 //      ,ticket: response.json()
             }]);
 
         });
 
-        console.log('fetching boroughs');
-       this.boroughs = new Observable<Borough[]>((observer: any) => {
+        this.boroughs = new Observable<Borough[]>((observer: any) => {
 
-            this.socket2.on('90e40254-d57c-4ce5-88b5-20034c9511ec',
+            this.socket.on('90e40254-d57c-4ce5-88b5-20034c9511ec',
                 data => {
                     console.log('new borough data');
                     observer.next(data.map(i => new Borough(i[0], i[1].fvTotal, i[1].count)));
                 });
 
             return () => {
-                this.socket2.disconnect();
+                this.socket.disconnect();
             };
         });
 
@@ -52,7 +46,7 @@ export class RtdbService {
 
     public getBoroughs(): Observable<Borough[]> {
 
-    return this.boroughs;
+        return this.boroughs;
     }
 
 }
