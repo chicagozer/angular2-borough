@@ -8,14 +8,7 @@ import { AppComponent } from "./app.component";
 import { ROUTES } from "./app.routes";
 import { BoroughComponent } from "./borough/borough.component";
 import { RtdbService } from "./rtdb/rtdb.service";
-import { APP_INITIALIZER } from '@angular/core';
-import { AppConfig }       from './app.config';
 
-
-export function initConfig(config:AppConfig)
-{
-    return () => config.load();
-}
 
 @NgModule({
     bootstrap: [BoroughComponent],
@@ -30,10 +23,7 @@ export function initConfig(config:AppConfig)
         MdGridListModule,
         RouterModule.forRoot(ROUTES, {useHash: true}),
     ],
-    providers: [RtdbService,
-        AppConfig,
-        { provide: APP_INITIALIZER, useFactory: initConfig, deps: [AppConfig], multi: true }
-    ],
+    providers: [RtdbService],
 })
 export class AppModule {
 }

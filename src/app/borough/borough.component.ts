@@ -2,7 +2,6 @@ import { Component, OnInit } from "@angular/core";
 import { Observable } from "rxjs/Rx";
 import { RtdbService } from "../rtdb/rtdb.service";
 import { Borough } from "./borough";
-import { AppConfig } from '../app.config';
 import { environment } from '../../environments/environment';
 @Component({
     // The selector is what angular internally uses
@@ -21,7 +20,7 @@ export class BoroughComponent implements OnInit {
     private boroughs: Observable<Borough[]>;
     public config : Object;
     // TypeScript public modifiers
-    constructor(public appConfig: AppConfig, private rtdbService: RtdbService) {
+    constructor( private rtdbService: RtdbService) {
         this.config = environment.config;
 
     }
