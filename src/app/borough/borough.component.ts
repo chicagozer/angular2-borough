@@ -2,7 +2,10 @@ import { Component, OnInit } from "@angular/core";
 import { Observable } from "rxjs/Rx";
 import { RtdbService } from "../rtdb/rtdb.service";
 import { Borough } from "./borough";
+import { Store } from '@ngrx/store';
+import { RECEIVE_BOROUGHS , IRootState} from '../reducers';
 import { environment } from '../../environments/environment';
+
 @Component({
     // The selector is what angular internally uses
     // for `document.querySelectorAll(selector)` in our index.html
@@ -15,27 +18,16 @@ import { environment } from '../../environments/environment';
     // Every Angular template is first compiled by the browser before Angular runs it"s compiler
     templateUrl: "./borough.template.html",
 })
-export class BoroughComponent implements OnInit {
+export class BoroughComponent  {
     // boroughs: Borough[] = [];
     private boroughs: Observable<Borough[]>;
     public config : Object;
     // TypeScript public modifiers
-    constructor( private rtdbService: RtdbService) {
+    constructor( private store: Store<IRootState>, private rtdb: RtdbService) {
         this.config = environment.config;
-
+        this.boroughs = store.select('boroughs');
+        console.dir(this.boroughs);
     }
 
-    public getBoroughs(): void {
-        // this.rtdbService
-        //   .getBoroughs()
-        //   .subscribe(boroughs => this.boroughs = boroughs);
-        this.boroughs = this.rtdbService.getBoroughs();
-    }
 
-    public ngOnInit() {
-
-        this.getBoroughs();
-       // console.log("hello `Borough` component");
-
-    }
 }
