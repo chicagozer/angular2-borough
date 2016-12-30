@@ -1,9 +1,9 @@
 import { Component, OnInit } from "@angular/core";
 import { Observable } from "rxjs/Rx";
-import { ConfigService } from "../config/config.service";
 import { RtdbService } from "../rtdb/rtdb.service";
 import { Borough } from "./borough";
-
+import { AppConfig } from '../app.config';
+import { environment } from '../../environments/environment';
 @Component({
     // The selector is what angular internally uses
     // for `document.querySelectorAll(selector)` in our index.html
@@ -18,11 +18,12 @@ import { Borough } from "./borough";
 })
 export class BoroughComponent implements OnInit {
     // boroughs: Borough[] = [];
-    public config: any;
     private boroughs: Observable<Borough[]>;
+    public config : Object;
     // TypeScript public modifiers
-    constructor(private rtdbService: RtdbService, private configsvc: ConfigService) {
-        this.config = configsvc.config;
+    constructor(public appConfig: AppConfig, private rtdbService: RtdbService) {
+        this.config = environment.config;
+
     }
 
     public getBoroughs(): void {
