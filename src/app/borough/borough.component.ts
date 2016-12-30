@@ -5,6 +5,8 @@ import { Observable} from 'rxjs/Rx';
 import { RtdbService } from '../rtdb/rtdb.service';
 
 
+import { ConfigService } from '../config/config.service';
+
 
 @Component({
   // The selector is what angular internally uses
@@ -22,11 +24,13 @@ import { RtdbService } from '../rtdb/rtdb.service';
 export class BoroughComponent {
  // boroughs: Borough[] = [];
   boroughs: Observable<Borough[]>;
-
-
+  config: any;
   // TypeScript public modifiers
   constructor(
-              private rtdbService: RtdbService) {
+              private rtdbService: RtdbService, private configsvc: ConfigService) {
+
+
+    this.config = configsvc.config;
 
   }
 

@@ -10,6 +10,7 @@ import { BoroughComponent } from './borough/borough.component';
 import { RtdbService } from './rtdb/rtdb.service';
 import { RouterModule } from '@angular/router';
 import { ROUTES } from './app.routes';
+import { ConfigService } from './config/config.service';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,7 @@ import { ROUTES } from './app.routes';
       MdGridListModule,
       RouterModule.forRoot(ROUTES, { useHash: true })
   ],
-  providers: [RtdbService],
+  providers: [RtdbService,ConfigService],
   bootstrap: [BoroughComponent]
 })
 export class AppModule { }
