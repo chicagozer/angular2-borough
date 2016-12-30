@@ -9,7 +9,7 @@ import { Borough } from "./borough";
     // for `document.querySelectorAll(selector)` in our index.html
     // where, in this case, selector is the string "home"
     providers: [],
-    selector: "sg-app-borough",  // <home></home>
+    selector: "app-borough",  // <home></home>
     // We need to tell Angular"s Dependency Injection which providers are in our app.
     // Our list of styles in our component. We may add more to compose many styles together
     styleUrls: ["./borough.style.css"],
