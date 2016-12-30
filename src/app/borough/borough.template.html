@@ -1,24 +1,26 @@
 <div>
-  <div className="page-header">
-    <h1>Angular Borough List<small>[{{config.version}}]</small></h1>
-  </div>
-  <div>
-    <table class="table table-striped">
-      <thead>
-      <tr>
-        <td>Name</td>
-        <td>Valuation</td>
-        <td>Count</td>
-      </tr>
-      </thead>
-      <tbody>
-      <tr *ngFor="let borough of boroughs | async ">
-        <td> {{ borough.name }}</td>
-        <td> {{ borough.valuation }}</td>
-        <td> {{ borough.count }}</td>
-      </tr>
-      </tbody>
-    </table>
-  </div>
+    <div className="page-header">
+        <h1>Angular Borough List
+            <small>[{{config.version}}]</small>
+        </h1>
+    </div>
+    <div>
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <td>Name</td>
+                <td>Valuation</td>
+                <td>Count</td>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let borough of boroughs | async ">
+                <td> {{ borough.name }}</td>
+                <td> {{ borough.valuation }}</td>
+                <td> {{ borough.count }}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
 
 </div>

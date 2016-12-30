@@ -1,15 +1,15 @@
 import "./polyfills.ts";
 
-import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
-import { platformBrowser } from '@angular/platform-browser';
-//import {AppModuleNgFactory} from './app/app.module.ngfactory' //generated code
-import { enableProdMode } from '@angular/core';
-import { environment } from './environments/environment';
-import { AppModule } from './app/';
+import { enableProdMode } from "@angular/core";
+import { platformBrowserDynamic } from "@angular/platform-browser-dynamic";
+// import {AppModuleNgFactory} from "./app/app.module.ngfactory" //generated code
+import { AppModule } from "./app/";
+import { environment } from "./environments/environment";
+
 
 if (environment.production) {
-  enableProdMode();
+    enableProdMode();
 }
 
 platformBrowserDynamic().bootstrapModule(AppModule);
-//platformBrowser().bootstrapModuleFactory(AppModuleNgFactory);
+// platformBrowser().bootstrapModuleFactory(AppModuleNgFactory);
