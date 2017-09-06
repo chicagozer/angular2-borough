@@ -19,7 +19,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
         FormsModule,
         HttpModule,
         MdGridListModule,
-        StoreModule.provideStore({ boroughs: boroughReducer }),
+        StoreModule.provideStore( boroughReducer ),
         StoreDevtoolsModule.instrumentOnlyWithExtension(),
     ],
     providers: [RtdbService],
