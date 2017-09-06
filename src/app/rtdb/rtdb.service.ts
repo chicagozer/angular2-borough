@@ -9,7 +9,7 @@ export class RtdbService {
 
     private socket: SocketIOClient.Socket;
 
-    private url: string = "https://rtdb.rheosoft.com";
+    private url: string = "https://rtdb.mybluemix.net";
 
     private boroughs: Observable<Borough[]>;
 
