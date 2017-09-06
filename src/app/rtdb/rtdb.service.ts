@@ -11,7 +11,7 @@ export class RtdbService {
 
     private socket: SocketIOClient.Socket;
 
-    private url: string = "https://rtdb.rheosoft.com";
+    private url: string = "https://rtdb.mybluemix.net";
 
     constructor(private http: Http, private store: Store<IRootState>) {
 
@@ -30,6 +30,7 @@ export class RtdbService {
 
         this.socket.on("90e40254-d57c-4ce5-88b5-20034c9511ec",
             (data) => {
+                console.log("dispatching...");
            this.store.dispatch({
                         type: RECEIVE_BOROUGHS,
                         payload: {boroughs: data.map((i) => new Borough(i[0], i[1].fvTotal, i[1].count))}
