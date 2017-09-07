@@ -7,13 +7,30 @@ export interface IRootState {
 }
 export const RECEIVE_BOROUGHS = 'RECEIVE_BOROUGHS';
 
-export function reducer(state: IRootState = {boroughs: []}, action: Action) {
+export class ReceiveAction implements Action {
+    readonly type = RECEIVE_BOROUGHS;
+    constructor(public payload: Borough[]) {
+    }
+}
+
+export class UnsafeAction implements Action {
+    readonly type = RECEIVE_BOROUGHS;
+    payload?: any;
+}
+
+export function reducer(state: IRootState = {boroughs: []}, action: ReceiveAction): IRootState {
+    //console.log("default reducer");
     switch (action.type) {
         case RECEIVE_BOROUGHS:
-            return Object.assign({}, state, {
-                boroughs: action.payload.boroughs,
+          //  console.log("receive reducer with " + action.payload.length + " boroughs");
+
+            let myreply =  Object.assign({}, state, {
+                boroughs: action.payload
             });
+           // console.dir(myreply);
+            return myreply;
         default:
+
             return state;
     }
 }

@@ -21,7 +21,7 @@ import { environment } from '../../environments/environment';
 export class BoroughComponent  {
     // boroughs: Borough[] = [];
     boroughs: Observable<Borough[]>;
-    public config : Object;
+    public config: Object;
     // TypeScript public modifiers
     constructor( private store: Store<IRootState>, private rtdb: RtdbService) {
         this.config = environment.config;

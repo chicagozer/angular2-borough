@@ -6,8 +6,9 @@ import { MdGridListModule } from "@angular2-material/grid-list";
 import { BoroughComponent } from "./borough/borough.component";
 import { RtdbService } from "./rtdb/rtdb.service";
 import { StoreModule } from '@ngrx/store';
-import { boroughReducer } from './reducers';
+import { reducer } from './reducers';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { environment } from '../environments/environment';
 
 @NgModule({
     bootstrap: [BoroughComponent],
@@ -19,8 +20,9 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
         FormsModule,
         HttpModule,
         MdGridListModule,
-        StoreModule.provideStore( boroughReducer ),
-        StoreDevtoolsModule.instrumentOnlyWithExtension(),
+       StoreModule.forRoot( { boroughs: reducer }),
+       // StoreModule.forRoot( reducer ),
+        !environment.production ? StoreDevtoolsModule.instrument({ maxAge: 50 }) : [],
     ],
     providers: [RtdbService],
 })

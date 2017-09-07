@@ -4,7 +4,7 @@ import {Observable} from "rxjs/Rx";
 import * as io from "socket.io-client";
 import {Borough} from "../borough/borough";
 import {Store} from "@ngrx/store";
-import {RECEIVE_BOROUGHS, IRootState} from "../reducers";
+import {RECEIVE_BOROUGHS, IRootState, ReceiveAction} from "../reducers";
 
 @Injectable()
 export class RtdbService {
@@ -30,12 +30,14 @@ export class RtdbService {
 
         this.socket.on("90e40254-d57c-4ce5-88b5-20034c9511ec",
             (data) => {
-                console.log("dispatching...");
+               // console.log("dispatching...");
+                this.store.dispatch(new ReceiveAction(data.map((i) => new Borough(i[0], i[1].fvTotal, i[1].count))));
+                /*
            this.store.dispatch({
                         type: RECEIVE_BOROUGHS,
                         payload: {boroughs: data.map((i) => new Borough(i[0], i[1].fvTotal, i[1].count))}
                     }
-                );
+                );*/
             });
     }
 }
