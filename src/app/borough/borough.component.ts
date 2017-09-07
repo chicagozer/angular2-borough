@@ -20,7 +20,7 @@ import { environment } from '../../environments/environment';
 })
 export class BoroughComponent  {
     // boroughs: Borough[] = [];
-    private boroughs: Observable<Borough[]>;
+    boroughs: Observable<Borough[]>;
     public config : Object;
     // TypeScript public modifiers
     constructor( private store: Store<IRootState>, private rtdb: RtdbService) {
