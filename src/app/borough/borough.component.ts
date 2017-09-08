@@ -25,7 +25,7 @@ export class BoroughComponent  {
     // TypeScript public modifiers
     constructor( private store: Store<IRootState>, private rtdb: RtdbService) {
         this.config = environment.config;
-        this.boroughs = store.select('boroughs');
+        this.boroughs = store.select(s => s.boroughs);
         console.dir(this.boroughs);
     }
 

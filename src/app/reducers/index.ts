@@ -13,29 +13,17 @@ export class ReceiveAction implements Action {
     }
 }
 
-export class UnsafeAction implements Action {
-    readonly type = RECEIVE_BOROUGHS;
-    payload?: any;
-}
-
-export function reducer(state: IRootState = {boroughs: []}, action: ReceiveAction): IRootState {
-    //console.log("default reducer");
+export function boroughReducer(state: IRootState = {boroughs: []}, action: ReceiveAction) {
     switch (action.type) {
         case RECEIVE_BOROUGHS:
-          //  console.log("receive reducer with " + action.payload.length + " boroughs");
 
-            let myreply =  Object.assign({}, state, {
-                boroughs: action.payload
-            });
-           // console.dir(myreply);
-            return myreply;
+            return action.payload;
         default:
 
             return state;
     }
 }
 
-export const boroughReducer: ActionReducer<IRootState> = reducer;
 
 
 
