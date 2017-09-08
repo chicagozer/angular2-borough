@@ -9,18 +9,16 @@ export const RECEIVE_BOROUGHS = 'RECEIVE_BOROUGHS';
 
 export class ReceiveAction implements Action {
     readonly type = RECEIVE_BOROUGHS;
-    constructor(public payload: Borough[]) {
+    constructor(public boroughs: Borough[]) {
     }
 }
 
 export function boroughReducer(state: IRootState = {boroughs: []}, action: ReceiveAction) {
     switch (action.type) {
         case RECEIVE_BOROUGHS:
-
-            return action.payload;
+            return action.boroughs;
         default:
-
-            return state;
+            return state.boroughs;
     }
 }
 

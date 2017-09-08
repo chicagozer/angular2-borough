@@ -5,7 +5,7 @@ import { Borough } from "./borough";
 import { Store } from '@ngrx/store';
 import { RECEIVE_BOROUGHS , IRootState} from '../reducers';
 import { environment } from '../../environments/environment';
-
+import {EmptyObservable} from 'rxjs/observable/EmptyObservable';
 @Component({
     // The selector is what angular internally uses
     // for `document.querySelectorAll(selector)` in our index.html
@@ -21,12 +21,11 @@ import { environment } from '../../environments/environment';
 export class BoroughComponent  {
     // boroughs: Borough[] = [];
     boroughs: Observable<Borough[]>;
-    public config: Object;
+    public config: any;
     // TypeScript public modifiers
     constructor( private store: Store<IRootState>, private rtdb: RtdbService) {
         this.config = environment.config;
         this.boroughs = store.select(s => s.boroughs);
-        console.dir(this.boroughs);
     }
 
 

@@ -21,7 +21,6 @@ import { environment } from '../environments/environment';
         HttpModule,
         MdGridListModule,
        StoreModule.forRoot( {boroughs: boroughReducer }),
-       // StoreModule.forRoot( reducer ),
         !environment.production ? StoreDevtoolsModule.instrument({ maxAge: 50 }) : [],
     ],
     providers: [RtdbService],
