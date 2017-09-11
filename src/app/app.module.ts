@@ -2,28 +2,28 @@ import { NgModule } from "@angular/core";
 import { FormsModule } from "@angular/forms";
 import { HttpModule } from "@angular/http";
 import { BrowserModule } from "@angular/platform-browser";
-import { RouterModule } from "@angular/router";
 import { MdGridListModule } from "@angular2-material/grid-list";
-import { AppComponent } from "./app.component";
-import { ROUTES } from "./app.routes";
 import { BoroughComponent } from "./borough/borough.component";
-import { ConfigService } from "./config/config.service";
 import { RtdbService } from "./rtdb/rtdb.service";
+import { StoreModule } from '@ngrx/store';
+import { boroughReducer } from './reducers';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { environment } from '../environments/environment';
 
 @NgModule({
     bootstrap: [BoroughComponent],
     declarations: [
-        AppComponent,
-        BoroughComponent,
+        BoroughComponent
     ],
     imports: [
         BrowserModule,
         FormsModule,
         HttpModule,
         MdGridListModule,
-        RouterModule.forRoot(ROUTES, {useHash: true}),
+       StoreModule.forRoot( {boroughs: boroughReducer }),
+        !environment.production ? StoreDevtoolsModule.instrument({ maxAge: 50 }) : [],
     ],
-    providers: [RtdbService, ConfigService],
+    providers: [RtdbService],
 })
 export class AppModule {
 }

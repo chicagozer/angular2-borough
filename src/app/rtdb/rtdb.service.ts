@@ -1,8 +1,10 @@
-import { Injectable } from "@angular/core";
-import { Http } from "@angular/http";
-import { Observable } from "rxjs/Rx";
+import {Injectable} from "@angular/core";
+import {Http} from "@angular/http";
+import {Observable} from "rxjs/Rx";
 import * as io from "socket.io-client";
-import { Borough } from "../borough/borough";
+import {Borough} from "../borough/borough";
+import {Store} from "@ngrx/store";
+import {RECEIVE_BOROUGHS, IRootState, ReceiveAction} from "../reducers";
 
 @Injectable()
 export class RtdbService {
@@ -11,9 +13,9 @@ export class RtdbService {
 
     private url: string = "https://rtdb.mybluemix.net";
 
-    private boroughs: Observable<Borough[]>;
+    constructor(private http: Http, private store: Store<IRootState>) {
 
-    constructor(private http: Http) {
+        console.log("rtdbservice started!!");
 
         this.socket = io(this.url);
 
@@ -26,23 +28,16 @@ export class RtdbService {
 
         });
 
-        this.boroughs = new Observable<Borough[]>((observer: any) => {
-
-            this.socket.on("90e40254-d57c-4ce5-88b5-20034c9511ec",
-                (data) => {
-                    observer.next(data.map((i) => new Borough(i[0], i[1].fvTotal, i[1].count)));
-                });
-
-            return () => {
-                this.socket.disconnect();
-            };
-        });
-
+        this.socket.on("90e40254-d57c-4ce5-88b5-20034c9511ec",
+            (data) => {
+               // console.log("dispatching...");
+                this.store.dispatch(new ReceiveAction(data.map((i) => new Borough(i[0], i[1].fvTotal, i[1].count))));
+                /*
+           this.store.dispatch({
+                        type: RECEIVE_BOROUGHS,
+                        payload: {boroughs: data.map((i) => new Borough(i[0], i[1].fvTotal, i[1].count))}
+                    }
+                );*/
+            });
     }
-
-    public getBoroughs(): Observable<Borough[]> {
-
-        return this.boroughs;
-    }
-
 }
