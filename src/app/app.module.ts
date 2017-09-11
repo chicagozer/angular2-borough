@@ -5,10 +5,10 @@ import { BrowserModule } from "@angular/platform-browser";
 import { MdGridListModule } from "@angular2-material/grid-list";
 import { BoroughComponent } from "./borough/borough.component";
 import { RtdbService } from "./rtdb/rtdb.service";
-import { StoreModule } from '@ngrx/store';
-import { boroughReducer } from './reducers';
-import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { environment } from '../environments/environment';
+import { StoreModule } from "@ngrx/store";
+import { boroughReducer } from "./reducers";
+import { StoreDevtoolsModule } from "@ngrx/store-devtools";
+import { environment } from "../environments/environment";
 
 @NgModule({
     bootstrap: [BoroughComponent],

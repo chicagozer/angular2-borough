@@ -1,11 +1,11 @@
-import { ActionReducer, Action } from '@ngrx/store';
+import { ActionReducer, Action } from "@ngrx/store";
 import {Borough} from "../borough/borough";
 
 export interface IRootState {
     boroughs: Borough[];
 
 }
-export const RECEIVE_BOROUGHS = 'RECEIVE_BOROUGHS';
+export const RECEIVE_BOROUGHS = "RECEIVE_BOROUGHS";
 
 export class ReceiveAction implements Action {
     readonly type = RECEIVE_BOROUGHS;

@@ -11,7 +11,7 @@ export class RtdbService {
 
     private socket: SocketIOClient.Socket;
 
-    private url: string = "https://rtdb.mybluemix.net";
+    private url: "https://rtdb.mybluemix.net";
 
     constructor(private http: Http, private store: Store<IRootState>) {
 
