@@ -2,10 +2,10 @@ import { Component, OnInit } from "@angular/core";
 import { Observable } from "rxjs/Rx";
 import { RtdbService } from "../rtdb/rtdb.service";
 import { Borough } from "./borough";
-import { Store } from '@ngrx/store';
-import { RECEIVE_BOROUGHS , IRootState} from '../reducers';
-import { environment } from '../../environments/environment';
-import {EmptyObservable} from 'rxjs/observable/EmptyObservable';
+import { Store } from "@ngrx/store";
+import { RECEIVE_BOROUGHS , IRootState} from "../reducers";
+import { environment } from "../../environments/environment";
+import {EmptyObservable} from "rxjs/observable/EmptyObservable";
 @Component({
     // The selector is what angular internally uses
     // for `document.querySelectorAll(selector)` in our index.html
